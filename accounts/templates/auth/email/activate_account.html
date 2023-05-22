@@ -1,0 +1,1 @@
+{% extends "auth/email/layout.html" %} {% block content %} <div class="container"> <p>Hey {{ user.username }}</p> <p>We noticed you just sign up on our website</p> <a class="text-decoration-none" href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Please <strong>confirm your email address</strong> and activate your account</a> </div> {% endblock %}
