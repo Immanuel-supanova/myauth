@@ -62,8 +62,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mailgun-user-domain'
-EMAIL_HOST_PASSWORD = 'mailgun-user-domain'
+EMAIL_HOST_USER = '<mailgun-user-domain>'
+EMAIL_HOST_PASSWORD = '<mailgun-user-domain>'
 ```
 Change AUTH_USER_MODEL in order to tell django that the custom user model is the default user model
 
