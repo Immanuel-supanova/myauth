@@ -6,12 +6,18 @@ The app uses a custom user model.
 
 Authentication using social apps is possible and can work with Python Social Auth
 
+```commandline
+pip install git+https://github.com/Immanuel-supanova/myauth.git
+```
+
 To set up the application the following settings should be implemented:
 
 Settings.py
 
 ```
 INSTALLED_APPS = [
+
+    'django.contrib.sites',
 
     'accounts',
 
@@ -62,8 +68,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '<mailgun-user-domain>'
-EMAIL_HOST_PASSWORD = '<mailgun-user-domain>'
+EMAIL_HOST_USER = 'mailgun-user-domain'
+EMAIL_HOST_PASSWORD = 'mailgun-user-domain'
 ```
 Change AUTH_USER_MODEL in order to tell django that the custom user model is the default user model
 
@@ -84,4 +90,10 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), 
 ]
+```
+run the following commands:
+```commandline
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
 ```
