@@ -84,7 +84,8 @@ LOGIN_REDIRECT_URL = '/'
 In the root urls.py file add the following paths:
 ```
 urlpatterns = [
-    path('', include('accounts.urls')),
+    path('auth/
+    ', include('accounts.urls')),
     path('rest/', include('rest_framework.urls')),
     path('api/', include('accounts.api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
