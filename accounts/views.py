@@ -65,7 +65,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('logout')
 
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):
@@ -92,12 +92,12 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
     def get_success_url(self):
-        return reverse('home')
+        return reverse('logout')
 
 
 class SignoutView(LogoutView):
     def get_success_url(self):
-        return reverse('home')
+        return reverse('login')
 
 
 class ActivateView(RedirectView):

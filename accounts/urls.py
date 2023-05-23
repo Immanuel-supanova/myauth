@@ -42,5 +42,5 @@ urlpatterns = [
     path('check-email/', CheckEmailView.as_view(), name="check_email"),
     path('success/', SuccessView.as_view(), name="success"),
 
-    path('', IndexView.as_view(), name='home'),
+    # path('', IndexView.as_view(), name='home'),
 ]
