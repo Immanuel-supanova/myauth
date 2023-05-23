@@ -78,7 +78,9 @@ AUTH_USER_MODEL = 'accounts.User'
 ```
 
 ```
-LOGIN_URL = '/auth/login/'
+from django.core.urlresolvers import reverse_lazy
+
+LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = '/'
 ```
 In the root urls.py file add the following paths:
