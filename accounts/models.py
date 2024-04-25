@@ -44,5 +44,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+    class Meta:
+        permissions = [
+            ("request_user_password_reset_token", "Can request user password reset token"),
+        ]
+
     def __str__(self):
         return self.email

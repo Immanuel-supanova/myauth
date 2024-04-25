@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'accounts',
+    'cyber',
 
     'rest_framework',
     "corsheaders",
@@ -44,6 +45,10 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+```
+```
+PRIVATE_KEY_FILE = f"{BASE_DIR}/private_key.pem"
+PUBLIC_KEY_FILE = f"{BASE_DIR}/public_key.pem"
 ```
 ```
 # Set the JWT cookie name and secure flag
@@ -76,26 +81,38 @@ Change AUTH_USER_MODEL in order to tell django that the custom user model is the
 ```
 AUTH_USER_MODEL = 'accounts.User'
 ```
-
-```
-from django.core.urlresolvers import reverse_lazy
-
-LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = '/'
-```
 In the root urls.py file add the following paths:
 ```
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
+
+from cyber.views import AplicationTokenRefreshView, ApplicationTokenObtainPairView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 urlpatterns = [
-    path('auth/
-    ', include('accounts.urls')),
-    path('rest/', include('rest_framework.urls')),
-    path('api/', include('accounts.api.urls')),
+    path('api/app/token/', ApplicationTokenObtainPairView.as_view()),
+    path('api/app/token/refresh/', AplicationTokenRefreshView.as_view()),
+    path('api/app/myauth/', include("accounts.api.application.urls"))
+
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), 
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/myauth/', include("accounts.api.developer.urls")) 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ```
+
+In gitignore
+```
+private_key.pem
+public_key.pem
+```
+
 run the following commands:
 ```commandline
+python manage.py generate_keys
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
